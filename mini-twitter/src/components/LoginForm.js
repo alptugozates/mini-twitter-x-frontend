@@ -31,7 +31,7 @@ const LoginForm = () => {
               placeholder="Phone number, email address"
               className={`mt-1 block w-full px-6 py-4 bg-white border ${
                 errors.email ? "border-red-500" : "border-gray-300"
-              } rounded-sm shadow-sm focus:outline-none focus:ring focus:border-blue-300`}
+              } rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300`}
             />
             {errors.email && (
               <p className="mt-2 text-sm text-red-600">
@@ -47,7 +47,7 @@ const LoginForm = () => {
               placeholder="Password"
               className={`mt-1 block w-full px-6 py-4 bg-white border ${
                 errors.password ? "border-red-500" : "border-gray-300"
-              } rounded-sm shadow-sm focus:outline-none focus:ring focus:border-blue-300`}
+              } rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300`}
             />
             {errors.password && (
               <p className="mt-2 text-sm text-red-600">
