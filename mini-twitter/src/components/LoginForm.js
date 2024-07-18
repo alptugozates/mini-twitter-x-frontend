@@ -15,8 +15,8 @@ const LoginForm = () => {
 
   return (
     <div className="flex items-center justify-center w-full min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 bg-white rounded shadow-lg">
-        <div className="flex flex-col items-center justify-start gap-4">
+      <div className="w-full flex flex-col max-w-md p-8 bg-white rounded shadow-lg">
+        <div className="flex flex-col items-start justify-start gap-6">
           <FaTwitter className="text-4xl text-turquoise" />
           <h2 className="mb-6 text-2xl font-extrabold font-montserrat  text-center">
             Log in to Twitter
