@@ -13,12 +13,22 @@ const LoginForm = () => {
     console.log(data);
   };
 
+  const emailOrPhoneValidation = (value) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{10}$/;
+
+    if (!emailRegex.test(value) && !phoneRegex.test(value)) {
+      return "Please enter a valid email or phone number";
+    }
+    return true;
+  };
+
   return (
     <div className="flex items-center justify-center w-full min-h-screen bg-gray-100">
       <div className="w-full flex flex-col max-w-md p-8 bg-white rounded shadow-lg">
         <div className="flex flex-col items-start justify-start gap-6">
           <FaTwitter className="text-4xl text-turquoise" />
-          <h2 className="mb-6 text-2xl font-extrabold font-montserrat  text-center">
+          <h2 className="mb-6 text-2xl font-extrabold font-montserrat text-center">
             Log in to Twitter
           </h2>
         </div>
@@ -27,7 +37,10 @@ const LoginForm = () => {
             <input
               id="email"
               type="text"
-              {...register("email", { required: "This field is required" })}
+              {...register("email", {
+                required: "This field is required",
+                validate: emailOrPhoneValidation,
+              })}
               placeholder="Phone number, email address"
               className={`mt-1 block w-full px-6 py-4 bg-white border ${
                 errors.email ? "border-red-500" : "border-gray-300"
@@ -64,7 +77,7 @@ const LoginForm = () => {
           </button>
 
           <div className="flex items-center justify-between mb-4 mt-8 font-montserrat text-turquoise">
-            <a href="#" className="text-sm  hover:underline">
+            <a href="#" className="text-sm hover:underline">
               Forgot password?
             </a>
             <a href="#" className="text-sm hover:underline">
