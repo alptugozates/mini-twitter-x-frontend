@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaTwitter } from "react-icons/fa";
+import { getYear, getMonth, eachDayOfInterval, format } from "date-fns";
 
 export const SignUpForm = () => {
   const {
@@ -8,6 +9,14 @@ export const SignUpForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const [useEmail, setUseEmail] = useState(false);
+
+  const currentYear = getYear(new Date());
+  const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
+  const months = Array.from({ length: 12 }, (_, i) => i + 1);
+  const days = Array.from({ length: 31 }, (_, i) => i + 1);
+
   const onSubmit = (data) => console.log(data);
 
   return (
@@ -38,26 +47,50 @@ export const SignUpForm = () => {
             </span>
           )}
         </div>
-        <div className="mb-4">
-          <input
-            {...register("phone", { required: true })}
-            className="shadow font-montserrat text-md border rounded w-full py-4 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
-            id="phone"
-            type="text"
-            placeholder="Phone number"
-          />
-          {errors.phone && (
+        <div className="flex flex-col gap-6 mb-4">
+          {useEmail ? (
+            <input
+              {...register("email", { required: true })}
+              className="shadow font-montserrat text-md border rounded w-full py-4 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+              id="email"
+              type="email"
+              placeholder="Email"
+            />
+          ) : (
+            <input
+              {...register("phone", { required: true })}
+              className="shadow font-montserrat text-md border rounded w-full py-4 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+              id="phone"
+              type="text"
+              placeholder="Phone number"
+            />
+          )}
+          {errors.phone && !useEmail && (
             <span className="text-red-500 text-xs italic">
               Phone number is required
             </span>
           )}
+          {errors.email && useEmail && (
+            <span className="text-red-500 text-xs italic">
+              Email is required
+            </span>
+          )}
+          <div className="flex flex-col justify-center gap-4 items-start">
+            <button
+              className="font-montserrat text-sm text-turquoise"
+              onClick={() => setUseEmail(!useEmail)}
+            >
+              {useEmail ? "Use phone number" : "Use email"}
+            </button>
+            <p className="font-montserrat text-xs text-custom-gray">
+              Facilisi sem pulvinar velit nunc, gravida scelerisque amet nibh
+              sit. Quis bibendum ante phasellus metus, magna lacinia sed augue.
+              Odio enim nascetur leo mauris vel eget. Pretium id ullamcorper
+              blandit viverra dignissim eget tellus. Nibh mi massa in molestie a
+              sit. Elit congue.
+            </p>
+          </div>
         </div>
-        <p className="font-montserrat text-xs text-custom-gray">
-          Facilisi sem pulvinar velit nunc, gravida scelerisque amet nibh sit.
-          Quis bibendum ante phasellus metus, magna lacinia sed augue. Odio enim
-          nascetur leo mauris vel eget. Pretium id ullamcorper blandit viverra
-          dignissim eget tellus. Nibh mi massa in molestie a sit. Elit congue.
-        </p>
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -71,21 +104,33 @@ export const SignUpForm = () => {
               className="shadow border rounded-md w-full py-5 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-2"
             >
               <option value="">Month</option>
-              {/* Add options for months */}
+              {months.map((month) => (
+                <option key={month} value={month}>
+                  {format(new Date(0, month - 1), "MMMM")}
+                </option>
+              ))}
             </select>
             <select
               {...register("day", { required: true })}
               className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-2"
             >
               <option value="">Day</option>
-              {/* Add options for days */}
+              {days.map((day) => (
+                <option key={day} value={day}>
+                  {day}
+                </option>
+              ))}
             </select>
             <select
               {...register("year", { required: true })}
               className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             >
               <option value="">Year</option>
-              {/* Add options for years */}
+              {years.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
             </select>
           </div>
           {errors.month && (
