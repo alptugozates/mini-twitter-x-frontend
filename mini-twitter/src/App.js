@@ -3,8 +3,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import LoginForm from "./components/LoginForm";
-import SignupForm from "./components/SignupForm";
-
+import SignupPage from "./components/SignupPage";
+import { SignUpForm } from "./components/SignUpForm";
 function App() {
   return (
     <Router>
@@ -16,7 +16,10 @@ function App() {
           <Route exact path="/login" element={<LoginForm />} />
         </Routes>
         <Routes>
-          <Route exact path="/signup" element={<SignupForm />} />
+          <Route exact path="/signup" element={<SignupPage />} />
+        </Routes>
+        <Routes>
+          <Route exact path="/register" element={<SignUpForm />} />
         </Routes>
       </div>
     </Router>
