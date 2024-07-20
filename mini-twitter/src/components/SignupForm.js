@@ -1,84 +1,116 @@
 import React from "react";
-import background from "../Foto/back-twitter-1.png";
-import { FaApple, FaTwitter } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+import { FaTwitter } from "react-icons/fa";
 
-const SignupForm = () => {
+export const SignUpForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
+
   return (
-    <div className="min-w-full h-auto">
-      <div className="flex min-h-screen">
-        <div className="w-1/2 h-auto">
-          <img
-            src={background}
-            alt="Twitter Background"
-            className="w-full h-full object-cover"
+    <div className="flex items-center justify-center w-full min-h-screen bg-gray-100">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full max-w-2xl flex flex-col gap-2 bg-white p-8 rounded shadow-md"
+      >
+        <div className="flex items-center justify-center mb-8 mt-2">
+          <FaTwitter className="text-turquoise text-5xl" />
+        </div>
+        <div className="flex flex-col gap-4 mb-4 ">
+          <p className="font-montserrat text-3xl font-bold">
+            Create an account
+          </p>
+        </div>
+        <div className="mb-4">
+          <input
+            {...register("name", { required: true })}
+            className="shadow border font-montserrat text-md rounded w-full py-4 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+            id="name"
+            type="text"
+            placeholder="Name"
           />
+          {errors.name && (
+            <span className="text-red-500 text-xs italic">
+              Name is required
+            </span>
+          )}
         </div>
-        <div className="w-1/2 flex flex-col justify-center items-center bg-white p-8">
-          <FaTwitter className="text-5xl text-turquoise mb-6" />
-          <h1 className="text-4xl font-montserrat font-bold mb-4">
-            Happening now
-          </h1>
-          <h2 className="text-2xl font-montserrat font-semibold mb-6">
-            Join Twitter today
-          </h2>
-          <button className="w-full max-w-xs bg-white border font-montserrat border-gray-300 text-gray-800 py-2 px-4 rounded mb-4 flex items-center text-center justify-center">
-            <img
-              src="https://img.icons8.com/color/48/000000/google-logo.png"
-              alt="Google"
-              className="w-6 h-auto mr-2"
-            />
-            Sign up with Google
-          </button>
-          <button className="w-full text-center font-montserrat max-w-xs bg-black text-white py-2 px-4 rounded mb-4 flex items-center justify-center">
-            <FaApple className="text-4xl text-white w-6 h-auto mr-2" />
-            Sign up with Apple
-          </button>
-          <button className="w-full max-w-xs bg-turquoise font-montserrat text-white py-2 px-4 rounded mb-4">
-            Sign up with phone or email
-          </button>
-          <p className="text-sm text-gray-500 text-center">
-            By signing up you agree to the{" "}
-            <a href="#" className="text-turquoise">
-              Terms of Service
-            </a>{" "}
-            and{" "}
-            <a href="#" className="text-turquoise">
-              Privacy Policy
-            </a>
-            , including{" "}
-            <a href="#" className="text-turquoise">
-              Cookie Use
-            </a>
-            .
-          </p>
-          <p className="text-sm text-gray-500 text-center mt-4">
-            Already have an account?{" "}
-            <a href="#" className="text-turquoise">
-              Log in
-            </a>
-          </p>
+        <div className="mb-4">
+          <input
+            {...register("phone", { required: true })}
+            className="shadow font-montserrat text-md border rounded w-full py-4 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+            id="phone"
+            type="text"
+            placeholder="Phone number"
+          />
+          {errors.phone && (
+            <span className="text-red-500 text-xs italic">
+              Phone number is required
+            </span>
+          )}
         </div>
-      </div>
-      <div className="fixed bottom-0 text-custom-gray font-montserrat font-semibold text-sm left-0 right-0 bg-white p-4 flex items-center justify-center gap-4 border-t border-gray-300">
-        <p>About</p>
-        <p>Help Center</p>
-        <p>Terms Of Service</p>
-        <p>Privacy Policy</p>
-        <p>Cookie Policy</p>
-        <p>Ads Info</p>
-        <p>Blog</p>
-        <p>Status</p>
-        <p>Careers</p>
-        <p>Brand Resources</p>
-        <p>Advertising</p>
-        <p>Marketing</p>
-        <p>Twitter for Business</p>
-        <p>Developers</p>
-        <p>Directory</p>
-        <p>© 2021 Twitter, Inc.</p>
-      </div>
+        <p className="font-montserrat text-xs text-custom-gray">
+          Facilisi sem pulvinar velit nunc, gravida scelerisque amet nibh sit.
+          Quis bibendum ante phasellus metus, magna lacinia sed augue. Odio enim
+          nascetur leo mauris vel eget. Pretium id ullamcorper blandit viverra
+          dignissim eget tellus. Nibh mi massa in molestie a sit. Elit congue.
+        </p>
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="dob"
+          >
+            Date of birth
+          </label>
+          <div className="flex">
+            <select
+              {...register("month", { required: true })}
+              className="shadow border rounded-md w-full py-5 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-2"
+            >
+              <option value="">Month</option>
+              {/* Add options for months */}
+            </select>
+            <select
+              {...register("day", { required: true })}
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-2"
+            >
+              <option value="">Day</option>
+              {/* Add options for days */}
+            </select>
+            <select
+              {...register("year", { required: true })}
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="">Year</option>
+              {/* Add options for years */}
+            </select>
+          </div>
+          {errors.month && (
+            <span className="text-red-500 text-xs italic">
+              Month is required
+            </span>
+          )}
+          {errors.day && (
+            <span className="text-red-500 text-xs italic">Day is required</span>
+          )}
+          {errors.year && (
+            <span className="text-red-500 text-xs italic">
+              Year is required
+            </span>
+          )}
+        </div>
+        <div className="flex items-center justify-center text-center mt-4 px-4">
+          <button
+            className="bg-turquoise text-md font-montserrat hover:bg-turquoise-400 text-white font-bold py-3 w-full rounded-3xl "
+            type="submit"
+          >
+            Next
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
-
-export default SignupForm;
