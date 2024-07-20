@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaTwitter } from "react-icons/fa";
-import { getYear, getMonth, eachDayOfInterval, format } from "date-fns";
+import { getYear, format } from "date-fns";
 
 export const SignUpForm = () => {
   const {
@@ -16,6 +16,11 @@ export const SignUpForm = () => {
   const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
+
+  const toggleUseEmail = (e) => {
+    e.preventDefault();
+    setUseEmail(!useEmail);
+  };
 
   const onSubmit = (data) => console.log(data);
 
@@ -78,7 +83,7 @@ export const SignUpForm = () => {
           <div className="flex flex-col justify-center gap-4 items-start">
             <button
               className="font-montserrat text-sm text-turquoise"
-              onClick={() => setUseEmail(!useEmail)}
+              onClick={toggleUseEmail}
             >
               {useEmail ? "Use phone number" : "Use email"}
             </button>
